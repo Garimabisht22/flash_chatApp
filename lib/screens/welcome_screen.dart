@@ -94,8 +94,12 @@ class _WelcomeScreenState extends State<WelcomeScreen>
             SizedBox(
               height: 48.0,
             ),
-            RoundButton(Colors.amberAccent,LoginScreen.id,"Login Screen",),
-            RoundButton(Colors.orange,RegistrationScreen.id,"Registration Screen",)
+            RoundButton(Colors.amberAccent,(){
+              Navigator.pushNamed(context, LoginScreen.id);
+            },"Login Screen",),
+            RoundButton(Colors.orange,(){
+              Navigator.pushNamed(context, RegistrationScreen.id);
+            },"Registration Screen",)
           ],
         ),
       ),
