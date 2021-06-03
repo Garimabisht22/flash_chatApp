@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 class RoundButton extends StatelessWidget {
-  const RoundButton(this.colour,this.screenId,this.text);
+  const RoundButton(this.colour,this.onPressed,this.text);
   final String text;
   final Color colour;
-  final String screenId;
+  final VoidCallback onPressed;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -15,10 +15,7 @@ class RoundButton extends StatelessWidget {
         color: this.colour,
         borderRadius: BorderRadius.circular(30.0),
         child: MaterialButton(
-          onPressed: () {
-            Navigator.pushNamed(context, this.screenId);
-            //Go to login screen.
-          },
+          onPressed: onPressed,
           minWidth: 200.0,
           height: 42.0,
           child: Text(
