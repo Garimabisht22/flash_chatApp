@@ -8,27 +8,53 @@ class WelcomeScreen extends StatefulWidget {
   _WelcomeScreenState createState() => _WelcomeScreenState();
 }
 
-class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProviderStateMixin{
-  late AnimationController controller;
+class _WelcomeScreenState extends State<WelcomeScreen> with TickerProviderStateMixin{
+  late AnimationController controller, iconController;
+  late Animation animation, iconAnimation;
   @override
   void initState(){
     super.initState();
     controller= AnimationController(
       duration: Duration(seconds: 1),
       vsync:this,
+   //   upperBound: 100
     );
+    iconController= AnimationController(vsync: this,duration: Duration(seconds:1));
+    animation = ColorTween(begin: Colors.amberAccent[400], end: Colors.white).animate(controller);
+    iconAnimation = CurvedAnimation(parent: iconController, curve: Curves.easeIn);
+    iconController.forward();
     controller.forward();
+    int i=0;
+    iconAnimation.addStatusListener((status) {
+      if(status == AnimationStatus.completed && i <2){
+        iconController.reverse(from:1.0);
+      i++;}
+      else if (status == AnimationStatus.dismissed ) {
+        iconController.forward();
+        i++;
+      }
+    });
+    iconController.addListener(() {
+      setState((){
+      });
+      print(iconAnimation.value);
+    });
     controller.addListener(() {
       setState(() {
-      print(controller.value);
       });
+      print(animation.value);
     });
+  }
+  @override
+  void dispose(){
+    controller.dispose();
+    super.dispose();
   }
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: animation.value,
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 24.0),
+        padding: EdgeInsets.symmetric(horizontal: 20.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -39,7 +65,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProvider
                   tag: 'logo',
                   child: Container(
                     child: Image.asset('images/logo.png'),
-                    height: controller.value,
+                    height: iconAnimation.value*70,
                   ),
                 ),
                 Text(
