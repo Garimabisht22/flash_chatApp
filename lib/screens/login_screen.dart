@@ -14,6 +14,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final loginTextController = TextEditingController();
   final _auth =FirebaseAuth.instance ;
   bool showSpinner = false;
   String email='';
@@ -30,11 +31,13 @@ class _LoginScreenState extends State<LoginScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Hero(
-                tag: 'logo',
-                child: Container(
-                  height: 220.0,
-                  child: Image.asset('images/logo.png'),
+              Flexible(
+                child: Hero(
+                  tag: 'logo',
+                  child: Container(
+                    height: 220.0,
+                    child: Image.asset('images/logo.png'),
+                  ),
                 ),
               ),
               SizedBox(
@@ -53,6 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: 8.0,
               ),
               TextField(
+                controller: loginTextController,
                   obscureText: true,
                   textAlign:TextAlign.center,
                 onChanged: (value) {
@@ -65,6 +69,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: 24.0,
               ),
              RoundButton(Colors.amberAccent, ()async{
+               loginTextController.clear();
                setState(() {
                  showSpinner = true;
                });
