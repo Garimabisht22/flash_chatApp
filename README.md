@@ -1,6 +1,11 @@
 # flash_chat
 
-A cool chatting application.
+A cool group chatting application.
+
+
+https://user-images.githubusercontent.com/51168410/121010229-c483a500-c7b2-11eb-8177-9c56ca82ccd4.mp4
+
+
 
 ## Getting Started
 
